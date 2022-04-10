@@ -5,6 +5,7 @@ hyundai_checksum = crcmod.mkCrcFun(0x11D, initCrc=0xFD, rev=False, xorOut=0xdf)
 
 def create_lkas11(packer, frame, car_fingerprint, apply_steer, steer_req,
                   lkas11, sys_warning, sys_state, enabled,
+                  lkas_active, disengage_from_brakes, below_lane_change_speed, disengage_blinking_icon,
                   left_lane, right_lane,
                   left_lane_depart, right_lane_depart):
   values = lkas11
@@ -29,7 +30,8 @@ def create_lkas11(packer, frame, car_fingerprint, apply_steer, steer_req,
     # FcwOpt_USM 2 = Green car + lanes
     # FcwOpt_USM 1 = White car + lanes
     # FcwOpt_USM 0 = No car + lanes
-    values["CF_Lkas_FcwOpt_USM"] = 2 if enabled else 1
+    values["CF_Lkas_FcwOpt_USM"] = 2 if lkas_active else 2 if disengage_blinking_icon else 1 if\
+                                   (disengage_from_brakes or below_lane_change_speed) else 1
 
     # SysWarning 4 = keep hands on wheel
     # SysWarning 5 = keep hands on wheel (red)
@@ -69,48 +71,49 @@ def create_clu11(packer, frame, clu11, button):
   return packer.make_can_msg("CLU11", 0, values)
 
 
-def create_lfahda_mfc(packer, enabled, hda_set_speed=0):
+def create_lfahda_mfc(packer, enabled, lkas_active, disengage_from_brakes, below_lane_change_speed, disengage_blinking_icon, slc_active, speed_limit, speed_limit_changed, switching_to_hda, zero_vego, hda_set_speed=0):
   values = {
-    "LFA_Icon_State": 2 if enabled else 0,
-    "HDA_Active": 1 if hda_set_speed else 0,
-    "HDA_Icon_State": 2 if hda_set_speed else 0,
-    "HDA_VSetReq": hda_set_speed,
+    "LFA_Icon_State": 2 if lkas_active else 3 if disengage_blinking_icon else 1 if (disengage_from_brakes or below_lane_change_speed) else 0,
+    "HDA_Active": 1 if not zero_vego else 0,
+    "HDA_Icon_State": 0 if zero_vego else 1 if (not slc_active and (speed_limit > 0.0)) else 2 if slc_active and enabled else 0,
+    "HDA_Chime": 1 if speed_limit_changed and slc_active else 0,
+    "LFA_SysWarning": 1 if switching_to_hda else 0,
   }
   return packer.make_can_msg("LFAHDA_MFC", 0, values)
 
-def create_acc_commands(packer, enabled, accel, jerk, idx, lead_visible, set_speed, stopping):
+def create_acc_commands(packer, enabled, accel, jerk_upper, jerk_lower, idx, lead_visible, set_speed, stopping, tau_gap_set):
   commands = []
 
   scc11_values = {
     "MainMode_ACC": 1,
-    "TauGapSet": 4,
+    "TauGapSet": tau_gap_set,
     "VSetDis": set_speed if enabled else 0,
     "AliveCounterACC": idx % 0x10,
-    "ObjValid": 1 if lead_visible else 0,
-    "ACC_ObjStatus": 1 if lead_visible else 0,
+    "ObjValid": 1 if lead_visible else 0, # close lead makes controls tighter
+    "ACC_ObjStatus": 1, # close lead makes controls tighter
     "ACC_ObjLatPos": 0,
     "ACC_ObjRelSpd": 0,
-    "ACC_ObjDist": 0,
+    "ACC_ObjDist": 1, # close lead makes controls tighter
   }
   commands.append(packer.make_can_msg("SCC11", 0, scc11_values))
 
   scc12_values = {
     "ACCMode": 1 if enabled else 0,
     "StopReq": 1 if enabled and stopping else 0,
-    "aReqRaw": accel if enabled else 0,
-    "aReqValue": accel if enabled else 0, # stock ramps up and down respecting jerk limit until it reaches aReqRaw
+    "aReqRaw": accel if enabled and not stopping else 0,
+    "aReqValue": accel if enabled and not stopping else 0, # stock ramps up and down respecting jerk limit until it reaches aReqRaw
     "CR_VSM_Alive": idx % 0xF,
   }
   scc12_dat = packer.make_can_msg("SCC12", 0, scc12_values)[2]
-  scc12_values["CR_VSM_ChkSum"] = 0x10 - sum([sum(divmod(i, 16)) for i in scc12_dat]) % 0x10
+  scc12_values["CR_VSM_ChkSum"] = 0x10 - sum(sum(divmod(i, 16)) for i in scc12_dat) % 0x10
 
   commands.append(packer.make_can_msg("SCC12", 0, scc12_values))
 
   scc14_values = {
     "ComfortBandUpper": 0.0, # stock usually is 0 but sometimes uses higher values
     "ComfortBandLower": 0.0, # stock usually is 0 but sometimes uses higher values
-    "JerkUpperLimit": max(jerk, 1.0) if (enabled and not stopping) else 0, # stock usually is 1.0 but sometimes uses higher values
-    "JerkLowerLimit": max(-jerk, 1.0) if enabled else 0, # stock usually is 0.5 but sometimes uses higher values
+    "JerkUpperLimit": jerk_upper if enabled else 0, # stock usually is 1.0 but sometimes uses higher values
+    "JerkLowerLimit": jerk_lower if enabled else 0, # stock usually is 0.5 but sometimes uses higher values
     "ACCMode": 1 if enabled else 4, # stock will always be 4 instead of 0 after first disengage
     "ObjGap": 2 if lead_visible else 0, # 5: >30, m, 4: 25-30 m, 3: 20-25 m, 2: < 20 m, 0: no lead
   }
@@ -127,7 +130,7 @@ def create_acc_commands(packer, enabled, accel, jerk, idx, lead_visible, set_spe
     "FCA_Status": 1, # AEB disabled
   }
   fca11_dat = packer.make_can_msg("FCA11", 0, fca11_values)[2]
-  fca11_values["CR_FCA_ChkSum"] = 0x10 - sum([sum(divmod(i, 16)) for i in fca11_dat]) % 0x10
+  fca11_values["CR_FCA_ChkSum"] = 0x10 - sum(sum(divmod(i, 16)) for i in fca11_dat) % 0x10
   commands.append(packer.make_can_msg("FCA11", 0, fca11_values))
 
   return commands
