@@ -62,10 +62,8 @@ def install_dep(spinner):
     subprocess.check_call(['sh', './install_gfortran.sh'], cwd=os.path.join(BASEDIR, 'installer/custom/'))
 
     # install pip from git
-    my_env = os.environ.copy()
-    my_env['NPY_NUM_BUILD_JOBS'] = '1'
     package = 'git+https://github.com/move-fast/opspline.git@master'
-    pip = subprocess.Popen([sys.executable, "-m", "pip", "install", "-v", package], stdout=subprocess.PIPE, env=my_env)
+    pip = subprocess.Popen([sys.executable, "-m", "pip", "install", "-v", package], stdout=subprocess.PIPE)
 
   # Read progress from pip and update spinner
   steps = 0
