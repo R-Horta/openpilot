@@ -17,7 +17,7 @@ CameraOffset = int(params.get("CameraOffset", encoding='utf8'))
 # print("User defined Camera Offset value in CM is:", CameraOffset)
 
 if EON:
-  CAMERA_OFFSET = -0.33   + CameraOffset / 100
+  CAMERA_OFFSET = 0.33 + CameraOffset / 100
   PATH_OFFSET = 0.0 + CameraOffset / 100
 elif TICI:
   CAMERA_OFFSET = -0.04 + CameraOffset / 100
