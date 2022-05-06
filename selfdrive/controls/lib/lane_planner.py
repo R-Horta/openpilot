@@ -23,7 +23,7 @@ elif TICI:
   CAMERA_OFFSET = -0.04 + CameraOffset / 100
   PATH_OFFSET = -0.04 + CameraOffset / 100
 else:
-  CAMERA_OFFSET = 0.0 + CameraOffset / 100
+  CAMERA_OFFSET = -0.33 + CameraOffset / 100
   PATH_OFFSET = 0.0 + CameraOffset / 100
 
 
