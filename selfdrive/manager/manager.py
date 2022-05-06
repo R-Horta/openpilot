@@ -36,9 +36,9 @@ def manager_init():
   params.clear_all(ParamKeyType.CLEAR_ON_MANAGER_START)
 
   default_params = [
-    ("ACCMADSCombo", "1"),
+    ("ACCMADSCombo", "0"),
     ("AutoLaneChangeTimer", "0"),
-    ("BrightnessControl", "10"),
+    ("BrightnessControl", "100"),
     ("CameraOffset", "0"),
     ("CarModel", ""),
     ("Change5speed", "0"),
