@@ -37,33 +37,33 @@ def manager_init():
 
   default_params = [
     ("ACCMADSCombo", "0"),
-    ("AutoLaneChangeTimer", "0"),
+    ("AutoLaneChangeTimer", "1"), # old value = "0"
     ("BrightnessControl", "100"),
     ("CameraOffset", "0"),
     ("CarModel", ""),
     ("Change5speed", "0"),
-    ("CompletedTrainingVersion", "1"),
+    ("CompletedTrainingVersion", "0"), # old value = "1"
     ("DevUI", "2"),
     ("EnableMADS", "1"),
     ("DisableOnroadUploads", "0"),
-    ("DynamicLaneProfile", "3"),
-    ("EndToEndToggle", "0"),
+    ("DynamicLaneProfile", "2"), # old value = "3"
+    ("EndToEndToggle", "1"), # old value = "0"
     ("GapAdjustCruise", "0"),
-    ("GapAdjustCruiseTr", "3"),
+    ("GapAdjustCruiseTr", "3"), # old value = "1"
     ("GpxDeleteAfterUpload", "1"),
     ("GpxDeleteIfUploaded", "1"),
     ("HasAcceptedTerms", "0"),
     ("HandsOnWheelMonitoring", "0"),
-    ("MaxTimeOffroad", "1800"),
+    ("MaxTimeOffroad", "10"), # old value = "30"
     ("NoOffroadFix", "0"),
-    ("OnroadScreenOff", "0"),
+    ("OnroadScreenOff", "1"), # old value = "0"
     ("OnroadScreenOffBrightness", "70"),
     ("OpenpilotEnabledToggle", "1"),
     ("PrebuiltOn", "0"),
     ("ShowDebugUI", "1"),
     ("SpeedLimitControl", "1"),
     ("SpeedLimitPercOffset", "0"),
-    ("TurnSpeedControl", "0"),
+    ("TurnSpeedControl", "1"),
     ("TurnVisionControl", "1"),
   ]
   if not PC:
