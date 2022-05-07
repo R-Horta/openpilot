@@ -11,6 +11,7 @@ from selfdrive.car.toyota.values import CAR, STATIC_DSU_MSGS, NO_STOP_TIMER_CAR,
 from selfdrive.car.toyota.interface import CarInterface
 from opendbc.can.packer import CANPacker
 VisualAlert = car.CarControl.HUDControl.VisualAlert
+CREEP_SPEED = 2.3
 
 
 class CarController():
@@ -45,18 +46,19 @@ class CarController():
       else:
         PEDAL_SCALE = interp(CS.out.vEgo, [0.0, MIN_ACC_SPEED, MIN_ACC_SPEED + PEDAL_TRANSITION], [0.4, 0.5, 0.0])
       # offset for creep and windbrake
-      pedal_offset = interp(CS.out.vEgo, [0.0, 2.3, MIN_ACC_SPEED + PEDAL_TRANSITION], [-0.4, 0.0, 0.2])
+      pedal_offset = interp(CS.out.vEgo, [0.0, CREEP_SPEED, MIN_ACC_SPEED + PEDAL_TRANSITION], [-0.4, 0.0, 0.2])
       pedal_command = PEDAL_SCALE * (actuators.accel + pedal_offset)
       interceptor_gas_cmd = clip(pedal_command, 0., MAX_INTERCEPTOR_GAS)
       boost = 0
     else:
       interceptor_gas_cmd = 0.
-      start_boost = interp(CS.out.vEgo, [0, 2.3, 4.6], [.6, .6, 0])
-      is_accelerating = interp(actuators.accel, [0, .2], [0, 1])
       # Toyotas don't respond to small accel requests when stationary
+      start_boost = interp(CS.out.vEgo, [0.0, CREEP_SPEED, 2 * CREEP_SPEED], [0.6, 0.6, 0.0])
+      is_accelerating = interp(actuators.accel, [0.0, 0.2], [0.0, 1.0])
       boost = start_boost * is_accelerating
     pid_accel_limits = CarInterface.get_pid_accel_limits(self.CP, CS.out.vEgo, None) # Need to get cruise speed from somewhere
-    pcm_accel_cmd = 0 if not (enabled and CS.out.cruiseState.enabled) else clip(actuators.accel + boost, pid_accel_limits[0], pid_accel_limits[1])    
+    pcm_accel_cmd = 0 if not (enabled and CS.out.cruiseState.enabled) else clip(actuators.accel + boost, pid_accel_limits[0], pid_accel_limits[1])
+    
     # steer torque
     new_steer = int(round(actuators.steer * CarControllerParams.STEER_MAX))
     apply_steer = apply_toyota_steer_torque_limits(new_steer, self.last_steer, CS.out.steeringTorqueEps, CarControllerParams)

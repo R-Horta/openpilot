@@ -24,7 +24,7 @@ elif TICI:
   PATH_OFFSET = -0.04 + CameraOffset / 100
 else:
   CAMERA_OFFSET = -0.33 + CameraOffset / 100
-  PATH_OFFSET = 0.05 + CameraOffset / 100 #path test to left? (old value=0.00)
+  PATH_OFFSET = -0.05 + CameraOffset / 100 #path test to left? (old value=0.05)
 
 
 class LanePlanner:
