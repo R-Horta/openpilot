@@ -739,11 +739,11 @@ EVENTS: Dict[int, Dict[str, Union[Alert, AlertCallbackType]]] = {
     ET.SOFT_DISABLE: soft_disable_alert("ESP Off"),
     ET.NO_ENTRY: NoEntryAlert("ESP Off"),
   },
-
-  EventName.lowBattery: {
-    ET.SOFT_DISABLE: soft_disable_alert("Low Battery"),
-    ET.NO_ENTRY: NoEntryAlert("Low Battery"),
-  },
+  # trying to keep the car running even with the Corolla's ridiculous 45ah battery
+  #EventName.lowBattery: {
+  #  ET.SOFT_DISABLE: soft_disable_alert("Low Battery"),
+  #  ET.NO_ENTRY: NoEntryAlert("Low Battery"),
+  #},
 
   # Different openpilot services communicate between each other at a certain
   # interval. If communication does not follow the regular schedule this alert
