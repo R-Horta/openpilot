@@ -17,14 +17,14 @@ CameraOffset = int(params.get("CameraOffset", encoding='utf8'))
 # print("User defined Camera Offset value in CM is:", CameraOffset)
 
 if EON:
-  CAMERA_OFFSET = 0.06 + CameraOffset / 100
+  CAMERA_OFFSET = 0.1 + CameraOffset / 100 #path test to left? (old value = 0.06)
   PATH_OFFSET = 0.0 + CameraOffset / 100
 elif TICI:
   CAMERA_OFFSET = -0.04 + CameraOffset / 100
   PATH_OFFSET = -0.04 + CameraOffset / 100
 else:
-  CAMERA_OFFSET = -1.1 + CameraOffset / 100 #path test to left? (old value = -0.55)
-  PATH_OFFSET = -0.55 + CameraOffset / 100 #path test to left? (old value = -0.33)
+  CAMERA_OFFSET = 0.0 + CameraOffset / 100 #path test to left? (old value = -1.1)
+  PATH_OFFSET = 0.0 + CameraOffset / 100 #path test to left? (old value = -0.55)
 
 
 class LanePlanner:

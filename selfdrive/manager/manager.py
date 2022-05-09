@@ -42,21 +42,21 @@ def manager_init():
     ("CameraOffset", "0"),
     ("CarModel", ""),
     ("Change5speed", "0"),
-    ("CompletedTrainingVersion", "0"), # old value = "1"
-    ("DevUI", "2"),
+    ("CompletedTrainingVersion", "0"),
+    ("DevUI", "2"), # Shou debug UI Elements
     ("EnableMADS", "1"),
     ("DisableOnroadUploads", "0"),
     ("DynamicLaneProfile", "2"), # old value = "3"
-    ("EndToEndToggle", "1"), # old value = "0"
+    ("EndToEndToggle", "1"), # Disable use of lanelines (Alpha)
     ("GapAdjustCruise", "0"),
     ("GapAdjustCruiseTr", "3"), # old value = "1"
     ("GpxDeleteAfterUpload", "1"),
     ("GpxDeleteIfUploaded", "1"),
     ("HasAcceptedTerms", "0"),
     ("HandsOnWheelMonitoring", "0"),
-    ("MaxTimeOffroad", "108000"), # old value = "10"
+    ("MaxTimeOffroad", "12"), # old value = "30"
     ("NoOffroadFix", "0"),
-    ("OnroadScreenOff", "1"), # old value = "0"
+    ("OnroadScreenOff", "-2"), # old value = "0"
     ("OnroadScreenOffBrightness", "70"),
     ("OpenpilotEnabledToggle", "1"),
     ("PrebuiltOn", "0"),

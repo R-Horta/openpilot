@@ -739,7 +739,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, AlertCallbackType]]] = {
     ET.SOFT_DISABLE: soft_disable_alert("ESP Off"),
     ET.NO_ENTRY: NoEntryAlert("ESP Off"),
   },
-  # trying to keep the car running even with the Corolla's ridiculous 45ah battery
+  #  keep the OP running even with the Corolla's ridiculous 45ah battery
   #EventName.lowBattery: {
   #  ET.SOFT_DISABLE: soft_disable_alert("Low Battery"),
   #  ET.NO_ENTRY: NoEntryAlert("Low Battery"),
