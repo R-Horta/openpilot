@@ -63,7 +63,7 @@ def manager_init():
     ("ShowDebugUI", "1"),
     ("SpeedLimitControl", "1"),
     ("SpeedLimitPercOffset", "0"),
-    ("TurnSpeedControl", "1"),
+    ("TurnSpeedControl", "0"), # old value = "1"
     ("TurnVisionControl", "1"),
   ]
   if not PC:

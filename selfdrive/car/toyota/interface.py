@@ -162,7 +162,7 @@ class CarInterface(CarInterfaceBase):
 
     elif candidate in [CAR.COROLLA_TSS2, CAR.COROLLAH_TSS2]:
       stop_and_go = True
-      ret.wheelbase = 2.70  # Average between 2.70 for sedan and 2.64 for hatchback # old value = 2.7
+      ret.wheelbase = 2.70  # Average between 2.70 for sedan and 2.64 for hatchback # old value = 2.67
       ret.steerRatio = 13.9
       tire_stiffness_factor = 0.444  # not optimized yet
       ret.mass = 3060. * CV.LB_TO_KG + STD_CARGO_KG
