@@ -1,4 +1,3 @@
-* Revert to neos18
 
 sunnypilot - Version 0.8.12-4 (2022-04-09)
 ========================
