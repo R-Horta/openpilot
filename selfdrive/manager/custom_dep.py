@@ -63,7 +63,7 @@ def install_dep(spinner):
 
     # install pip from git
     package = 'git+https://github.com/move-fast/opspline.git@master'
-    pip = subprocess.Popen([sys.executable, "-m", "pip", "install", "-v", package], stdout=subprocess.PIPE)
+    pip = subprocess.Popen([sys.executable, "-m", "pip", "install", "-v", package], stdout=subprocess.PIPE, env=my_env)
 
   # Read progress from pip and update spinner
   steps = 0
