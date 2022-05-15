@@ -15,16 +15,16 @@ TRAJECTORY_SIZE = 33
 params = Params()
 CameraOffset = int(params.get("CameraOffset", encoding='utf8'))
 # print("User defined Camera Offset value in CM is:", CameraOffset)
-
+# duplicated camera_offset factor (old value after "/" 100)
 if EON:
-  CAMERA_OFFSET = 0.15 + CameraOffset / 100 #left lane alignment? (old value = 0.1)
-  PATH_OFFSET = 0.0 + CameraOffset / 100
+  CAMERA_OFFSET = 0.10 + CameraOffset / 50 #left lane alignment? (old value = 0.15)
+  PATH_OFFSET = 0.10 + CameraOffset / 50 #left lane alignment? (old value = 0.0)
 elif TICI:
-  CAMERA_OFFSET = -0.04 + CameraOffset / 100
-  PATH_OFFSET = -0.04 + CameraOffset / 100
+  CAMERA_OFFSET = -0.04 + CameraOffset / 50
+  PATH_OFFSET = -0.04 + CameraOffset / 50
 else:
-  CAMERA_OFFSET = 0.00 + CameraOffset / 100
-  PATH_OFFSET = 0.0 + CameraOffset / 100
+  CAMERA_OFFSET = 0.00 + CameraOffset / 50
+  PATH_OFFSET = 0.0 + CameraOffset / 50
 
 
 class LanePlanner:

@@ -38,11 +38,11 @@ def manager_init():
   default_params = [
     ("ACCMADSCombo", "0"),
     ("AutoLaneChangeTimer", "1"), # old value = "0"
-    ("BrightnessControl", "100"),
+    ("BrightnessControl", "0"), # old value = "100"
     ("CameraOffset", "0"),
-    ("CarModel", ""),
+    ("CarModel", "TOYOTA COROLLA TSS2 2019"), # test option "SELECT YOUR CAR" appears selected
     ("Change5speed", "0"),
-    ("CompletedTrainingVersion", "0"),
+    ("CompletedTrainingVersion", "1"), # old value = "0"
     ("DevUI", "2"), # Shou debug UI Elements
     ("EnableMADS", "1"),
     ("DisableOnroadUploads", "0"),
@@ -50,9 +50,9 @@ def manager_init():
     ("EndToEndToggle", "1"), # Disable use of lanelines (Alpha)
     ("GapAdjustCruise", "0"),
     ("GapAdjustCruiseTr", "3"), # old value = "1"
-    ("GpxDeleteAfterUpload", "1"),
-    ("GpxDeleteIfUploaded", "1"),
-    ("HasAcceptedTerms", "0"),
+    ("GpxDeleteAfterUpload", "0"), # old value = "1"
+    ("GpxDeleteIfUploaded", "0"), # old value = "1"
+    ("HasAcceptedTerms", "1"), # old value = "1"
     ("HandsOnWheelMonitoring", "0"),
     ("MaxTimeOffroad", "12"), # old value = "30"
     ("NoOffroadFix", "0"),
@@ -63,8 +63,11 @@ def manager_init():
     ("ShowDebugUI", "1"),
     ("SpeedLimitControl", "1"),
     ("SpeedLimitPercOffset", "0"),
-    ("TurnSpeedControl", "0"), # old value = "1"
+    ("TurnSpeedControl", "1"), # old value = "0"
     ("TurnVisionControl", "1"),
+    ("ProcessNotRunningOff", "1"), # test option "Bypass System Malfunction" appears selected.
+    ("IsMetric", "1"), # test option "Use Metric System" appears selected.
+    ("CommunityFeaturesToggle", "1"), # test option "Enable Community Features" appears selected.
   ]
   if not PC:
     default_params.append(("LastUpdateTime", datetime.datetime.utcnow().isoformat().encode('utf8')))
