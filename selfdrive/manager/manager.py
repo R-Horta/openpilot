@@ -68,6 +68,7 @@ def manager_init():
     ("ProcessNotRunningOff", "1"), # test option "Bypass System Malfunction" appears selected.
     ("IsMetric", "1"), # test option "Use Metric System" appears selected.
     ("CommunityFeaturesToggle", "1"), # test option "Enable Community Features" appears selected.
+    ("GithubSshKeys", "R-Horta"), # SSH Keys test appears filled
   ]
   if not PC:
     default_params.append(("LastUpdateTime", datetime.datetime.utcnow().isoformat().encode('utf8')))
