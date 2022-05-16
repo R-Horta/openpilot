@@ -17,13 +17,13 @@ CameraOffset = int(params.get("CameraOffset", encoding='utf8'))
 # print("User defined Camera Offset value in CM is:", CameraOffset)
 # duplicated camera_offset factor (old value after "/" 100)
 if EON:
-  CAMERA_OFFSET = 0.10 + CameraOffset / 50 #left lane alignment? (old value = 0.15)
-  PATH_OFFSET = 0.10 + CameraOffset / 50 #left lane alignment? (old value = 0.0)
+  CAMERA_OFFSET = 0.15 + CameraOffset / 50 #left lane alignment? (old value = 0.10)
+  PATH_OFFSET = 0.15 + CameraOffset / 50 #left lane alignment? (old value = 0.0)
 elif TICI:
   CAMERA_OFFSET = -0.04 + CameraOffset / 50
   PATH_OFFSET = -0.04 + CameraOffset / 50
 else:
-  CAMERA_OFFSET = 0.00 + CameraOffset / 50
+  CAMERA_OFFSET = 0.0 + CameraOffset / 50
   PATH_OFFSET = 0.0 + CameraOffset / 50
 
 
