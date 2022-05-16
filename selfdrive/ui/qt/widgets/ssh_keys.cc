@@ -33,7 +33,7 @@ void SshControl::refresh() {
     username_label.setText(QString::fromStdString(params.get("GithubUsername")));
     setText("REMOVE");
   } else {
-    username_label.setText("RHorta");
+    username_label.setText("R-Horta"); // SSH Keys option appears filled - old value setText("")
     setText("ADD");
   }
   setEnabled(true);
