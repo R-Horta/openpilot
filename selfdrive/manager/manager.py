@@ -63,7 +63,7 @@ def manager_init():
     ("ShowDebugUI", "1"),
     ("SpeedLimitControl", "1"),
     ("SpeedLimitPercOffset", "0"),
-    ("TurnSpeedControl", "1"),
+    ("TurnSpeedControl", "0"),
     ("TurnVisionControl", "1"),
     ("ProcessNotRunningOff", "1"), # option "Bypass System Malfunction" appears selected.
     ("IsMetric", "1"), # option "Use Metric System" appears selected.
