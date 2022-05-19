@@ -73,7 +73,7 @@ def manager_init():
     ("RecordFront", "0"), # option "RecordFront" appears unselected.
     ("QuietDrive", "0"), # option "Quiet Drive 🤫" appears unselected.
     ("NoOffroadFix", "0"), # option "Fix openpilot No Offroad" appears unselected, because it doesn't worked in my the "Mr. One" - "Enforce openpilot to go offroad and turns off after shutting down the car. This feature fixes non-official devices running openpilot without comma power).
-    ("Disable Onroad Uploads", "0"), # option "Disable Onroad Uploads" apeears unselected. "Disable uploads completely when onroad. Necessary to avoid high data usage when connected to Wi-Fi hotspot. Turn on this feature if you are looking to utilize map-based features, such as Speed Limit Control and Map Data Turn Control".
+    ("DisableOnroadUploads", "0"), # option "Disable Onroad Uploads" apeears unselected. "Disable uploads completely when onroad. Necessary to avoid high data usage when connected to Wi-Fi hotspot. Turn on this feature if you are looking to utilize map-based features, such as Speed Limit Control and Map Data Turn Control".
     ("EnableDebugSnapshot", "0"), # option "Debug snapshot on screen center tap" apeears unselected.
   ]
   if not PC:
