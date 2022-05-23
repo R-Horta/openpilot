@@ -13,9 +13,9 @@ from selfdrive.modeld.constants import T_IDXS
 
 _PARAMS_UPDATE_PERIOD = 2.  # secs. Time between parameter updates.
 _TEMP_INACTIVE_GUARD_PERIOD = 1.  # secs. Time to wait after activation before considering temp deactivation signal.
-
+# In Brazil, the margin of error for radars is 7%, according to Contran resolution 798.
 # Lookup table for speed limit percent offset depending on speed. Speeds in m/s. Below 40 Km/h don't increment.
-_LIMIT_PERC_OFFSET_V = [0.0, 0.04, 0.034, 0.0375, 0.03, 0.025]  # 40, 52, 62, 83, 103, 123 Km/h - old value = [0.1, 0.05, 0.038]
+_LIMIT_PERC_OFFSET_V = [0.0, 0.04, 0.034, 0.0375, 0.04, 0.05]  # 40, 52, 62, 83, 104, 126 Km/h - old value = [0.1, 0.05, 0.038]
 _LIMIT_PERC_OFFSET_BP = [11.11, 13.89, 16.66, 22.22, 27.78, 33.33]  # 40, 50, 60, 80, 100, 120 Km/h - old value = [13.9, 27.8, 36.1] 
 
 SpeedLimitControlState = log.LongitudinalPlan.SpeedLimitControlState
