@@ -24,21 +24,21 @@ _EVAL_START = 20.  # mts. Distance ahead where to start evaluating vision curvat
 _EVAL_LENGHT = 150.  # mts. Distance ahead where to stop evaluating vision curvature.
 _EVAL_RANGE = np.arange(_EVAL_START, _EVAL_LENGHT, _EVAL_STEP)
 
-_A_LAT_REG_MAX = 2.  # Maximum lateral acceleration
+_A_LAT_REG_MAX = 2.5  # Maximum lateral acceleration - old value = 2.
 
 _NO_OVERSHOOT_TIME_HORIZON = 4.  # s. Time to use for velocity desired based on a_target when not overshooting.
 
 # Lookup table for the minimum smooth deceleration during the ENTERING state
 # depending on the actual maximum absolute lateral acceleration predicted on the turn ahead.
 _ENTERING_SMOOTH_DECEL_V = [-0.2, -1.]  # min decel value allowed on ENTERING state
-_ENTERING_SMOOTH_DECEL_BP = [1.3, 3.]  # absolute value of lat acc ahead
+_ENTERING_SMOOTH_DECEL_BP = [1.6, 3.7]  # absolute value of lat acc ahead - old value = [1.3, 3.]
 
 # Lookup table for the acceleration for the TURNING state
 # depending on the current lateral acceleration of the vehicle.
 _TURNING_ACC_V = [0.5, 0., -0.4]  # acc value
-_TURNING_ACC_BP = [1.5, 2.3, 3.]  # absolute value of current lat acc
+_TURNING_ACC_BP = [1.8, 2.8, 3.7]  # absolute value of current lat acc - old value = [1.5, 2.3, 3.]
 
-_LEAVING_ACC = 0.5  # Confortble acceleration to regain speed while leaving a turn.
+_LEAVING_ACC = 0.6  # Confortble acceleration to regain speed while leaving a turn. - old value = 0.5
 
 _MIN_LANE_PROB = 0.6  # Minimum lanes probability to allow curvature prediction based on lanes.
 
