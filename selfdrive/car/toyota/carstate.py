@@ -12,6 +12,8 @@ from selfdrive.swaglog import cloudlog
 from common.realtime import DT_CTRL, sec_since_boot
 from common.params import Params
 
+T_FACTOR = 1.08 # variable created to match openpilot speed with speedometer speed 
+
 class CarState(CarStateBase):
   def __init__(self, CP):
     super().__init__(CP)
@@ -94,8 +96,8 @@ class CarState(CarStateBase):
       cp.vl["WHEEL_SPEEDS"]["WHEEL_SPEED_RL"],
       cp.vl["WHEEL_SPEEDS"]["WHEEL_SPEED_RR"],
     )
-    ret.vEgoRaw = mean([ret.wheelSpeeds.fl, ret.wheelSpeeds.fr, ret.wheelSpeeds.rl, ret.wheelSpeeds.rr])
-    ret.vEgo, ret.aEgo = self.update_speed_kf(ret.vEgoRaw)
+    ret.vEgoRaw = T_FACTOR * mean([ret.wheelSpeeds.fl, ret.wheelSpeeds.fr, ret.wheelSpeeds.rl, ret.wheelSpeeds.rr]) # variable T_FACTOR created to match openpilot speed with speedometer speed - old value = mean([ret.wheelSpeeds...
+    ret.vEgo, ret.aEgo = self.update_speed_kf(ret.vEgoRaw) 
 
     self.belowLaneChangeSpeed = ret.vEgo < (25 * CV.MPH_TO_MS) # Enable Lane Change above 40 km/h instead of 48 km/h - old value = 30
 
