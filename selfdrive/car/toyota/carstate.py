@@ -97,7 +97,7 @@ class CarState(CarStateBase):
     ret.vEgoRaw = mean([ret.wheelSpeeds.fl, ret.wheelSpeeds.fr, ret.wheelSpeeds.rl, ret.wheelSpeeds.rr])
     ret.vEgo, ret.aEgo = self.update_speed_kf(ret.vEgoRaw)
 
-    self.belowLaneChangeSpeed = ret.vEgo < (30 * CV.MPH_TO_MS)
+    self.belowLaneChangeSpeed = ret.vEgo < (25 * CV.MPH_TO_MS) # Enable Lane Change above 40 km/h instead of 48 km/h - old value = 30
 
     ret.standstill = ret.vEgoRaw < 0.001
     ret.standStill = self.CP.standStill
