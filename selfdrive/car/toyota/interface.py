@@ -70,6 +70,7 @@ class CarInterface(CarInterfaceBase):
       tire_stiffness_factor = 0.444  # not optimized yet
       ret.mass = 2860. * CV.LB_TO_KG + STD_CARGO_KG  # mean between normal and hybrid
       set_lat_tune(ret.lateralTuning, LatTunes.PID_A)
+      ret.wheelSpeedFactor = 1.035 # Make OpenPilot's speed match the dashboard's speedometer. - old value = without this line
 
     elif candidate == CAR.LEXUS_RX:
       stop_and_go = True
@@ -162,11 +163,12 @@ class CarInterface(CarInterfaceBase):
 
     elif candidate in [CAR.COROLLA_TSS2, CAR.COROLLAH_TSS2]:
       stop_and_go = True
-      ret.wheelbase = 2.70  # Average between 2.70 for sedan and 2.64 for hatchback # old value = 2.67
+      ret.wheelbase = 2.70 # Average between 2.70 for sedan and 2.64 for hatchback - length between the axis - old value = 2.67
       ret.steerRatio = 13.9
       tire_stiffness_factor = 0.444  # not optimized yet
       ret.mass = 3060. * CV.LB_TO_KG + STD_CARGO_KG
       set_lat_tune(ret.lateralTuning, LatTunes.PID_D)
+      ret.wheelSpeedFactor = 1.035 # Make OpenPilot's speed match the dashboard's speedometer. - old value = without this line
 
     elif candidate in [CAR.LEXUS_ES_TSS2, CAR.LEXUS_ESH_TSS2]:
       stop_and_go = True
