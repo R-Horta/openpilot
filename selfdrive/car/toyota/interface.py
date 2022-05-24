@@ -70,7 +70,7 @@ class CarInterface(CarInterfaceBase):
       tire_stiffness_factor = 0.444  # not optimized yet
       ret.mass = 2860. * CV.LB_TO_KG + STD_CARGO_KG  # mean between normal and hybrid
       set_lat_tune(ret.lateralTuning, LatTunes.PID_A)
-      ret.wheelSpeedFactor = 1.035 # Make OpenPilot's speed match the dashboard's speedometer. - old value = without this line
+      ret.wheelSpeedFactor = 1.075 # Make OpenPilot's speed match the dashboard's speedometer. - old value = without this line
 
     elif candidate == CAR.LEXUS_RX:
       stop_and_go = True
@@ -168,7 +168,7 @@ class CarInterface(CarInterfaceBase):
       tire_stiffness_factor = 0.444  # not optimized yet
       ret.mass = 3060. * CV.LB_TO_KG + STD_CARGO_KG
       set_lat_tune(ret.lateralTuning, LatTunes.PID_D)
-      ret.wheelSpeedFactor = 1.035 # Make OpenPilot's speed match the dashboard's speedometer. - old value = without this line
+      ret.wheelSpeedFactor = 1.075 # Make OpenPilot's speed match the dashboard's speedometer. - old value = without this line
 
     elif candidate in [CAR.LEXUS_ES_TSS2, CAR.LEXUS_ESH_TSS2]:
       stop_and_go = True
