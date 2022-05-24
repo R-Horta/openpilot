@@ -14,8 +14,8 @@ from cereal import log
 LaneChangeState = log.LateralPlan.LaneChangeState
 LaneChangeDirection = log.LateralPlan.LaneChangeDirection
 
-LANE_CHANGE_SPEED_MIN = 30 * CV.MPH_TO_MS
-LANE_CHANGE_TIME_MAX = 10.
+LANE_CHANGE_SPEED_MIN = 20 * CV.MPH_TO_MS # Enable Lane Change above 32 km/h instead of 48 km/h - old value = 30 
+LANE_CHANGE_TIME_MAX = 13.  # Enable Lane Change above 32 km/h instead of 48 km/h - old value = 10
 
 DESIRES = {
   LaneChangeDirection.none: {
