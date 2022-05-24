@@ -12,8 +12,6 @@ from selfdrive.swaglog import cloudlog
 from common.realtime import DT_CTRL, sec_since_boot
 from common.params import Params
 
-T_FACTOR = 1.08 # variable created to match openpilot speed with speedometer speed 
-
 class CarState(CarStateBase):
   def __init__(self, CP):
     super().__init__(CP)
@@ -96,10 +94,10 @@ class CarState(CarStateBase):
       cp.vl["WHEEL_SPEEDS"]["WHEEL_SPEED_RL"],
       cp.vl["WHEEL_SPEEDS"]["WHEEL_SPEED_RR"],
     )
-    ret.vEgoRaw = T_FACTOR * mean([ret.wheelSpeeds.fl, ret.wheelSpeeds.fr, ret.wheelSpeeds.rl, ret.wheelSpeeds.rr]) # variable T_FACTOR created to match openpilot speed with speedometer speed - old value = mean([ret.wheelSpeeds...
-    ret.vEgo, ret.aEgo = self.update_speed_kf(ret.vEgoRaw) 
+    ret.vEgoRaw = T_FACTOR * mean([ret.wheelSpeeds.fl, ret.wheelSpeeds.fr, ret.wheelSpeeds.rl, ret.wheelSpeeds.rr])
+    ret.vEgo, ret.aEgo = self.update_speed_kf(ret.vEgoRaw)
 
-    self.belowLaneChangeSpeed = ret.vEgo < (25 * CV.MPH_TO_MS) # Enable Lane Change above 40 km/h instead of 48 km/h - old value = 30
+    self.belowLaneChangeSpeed = ret.vEgo < (30 * CV.MPH_TO_MS)
 
     ret.standstill = ret.vEgoRaw < 0.001
     ret.standStill = self.CP.standStill
@@ -206,7 +204,7 @@ class CarState(CarStateBase):
       ret.cruiseState.speed = cp.vl["DSU_CRUISE"]["SET_SPEED"] * CV.KPH_TO_MS
     else:
       ret.cruiseState.available = cp.vl["PCM_CRUISE_2"]["MAIN_ON"] != 0
-      ret.cruiseState.speed = cp.vl["PCM_CRUISE_2"]["SET_SPEED"] * CV.KPH_TO_MS
+      ret.cruiseState.speed = cp.vl["PCM_CRUISE_2"]["SET_SPEED"] * CV.KPH_TO_MS * self.CP.wheelSpeedFactor # Make OpenPilot's speed match the dashboard's speedometer. - old value = without self.CP.wheelSpeedFactor
 
     if self.CP.carFingerprint in TSS2_CAR:
       self.acc_type = 1
@@ -218,7 +216,9 @@ class CarState(CarStateBase):
         if self.CP.carFingerprint in TSS2_CAR:
           # KRKeegan - Add support for toyota distance button
           self.gap_adjust_cruise_tr = 1 if cp_cam.vl["ACC_CONTROL"]["DISTANCE"] == 1 else 0
-          ret.gapAdjustCruiseTr = cp.vl["PCM_CRUISE_SM"]["DISTANCE_LINES"]
+        elif self.CP.smartDsu:
+          self.gap_adjust_cruise_tr = 1 if cp.vl["SDSU"]["FD_BUTTON"] == 1 else 0    
+        ret.gapAdjustCruiseTr = cp.vl["PCM_CRUISE_SM"]["DISTANCE_LINES"]
 
     # Toyota 5/5 Speed Increments
     self.Fast_Speed_Increments = 2 if Params().get_bool('Change5speed') else 1
@@ -359,6 +359,7 @@ class CarState(CarStateBase):
     if CP.hasZss:
       signals += [("ZORRO_STEER", "SECONDARY_STEER_ANGLE", 0)]
       checks += [("SECONDARY_STEER_ANGLE", 0)]
+  
     # add gas interceptor reading if we are using it
     if CP.enableGasInterceptor:
       signals.append(("INTERCEPTOR_GAS", "GAS_SENSOR", 0))
@@ -380,6 +381,10 @@ class CarState(CarStateBase):
     if CP.carFingerprint in TSS2_CAR:
       signals.append(("DISTANCE_LINES", "PCM_CRUISE_SM", 0))
       checks.append(("PCM_CRUISE_SM", 1))
+
+    if CP.smartDsu:
+       signals.append(("FD_BUTTON", "SDSU", 0))
+       checks.append(("SDSU", 33))
 
     return CANParser(DBC[CP.carFingerprint]["pt"], signals, checks, 0)
 
