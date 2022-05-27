@@ -441,6 +441,9 @@ class Controls:
       else:
         # ENABLED
         if self.state == State.enabled:
+          # Correction of the last maximum speed that was lost on the screen. @AlexandreSato
+          if not self.CP.pcmCruise and CS.cruiseState.enabled and (not self.cruiseState_enabled_last):
+            self.v_cruise_kph = initialize_v_cruise(CS.vEgo, CS.buttonEvents, self.v_cruise_kph_last)
           if self.events.any(ET.SOFT_DISABLE):
             self.state = State.softDisabling
             self.soft_disable_timer = int(SOFT_DISABLE_TIME / DT_CTRL)
@@ -477,10 +480,8 @@ class Controls:
           else:
             self.state = State.enabled
           self.current_alert_types.append(ET.ENABLE)
-          if not self.CP.pcmCruise:
-            if CS.cruiseState.enabled:
-              self.v_cruise_kph = initialize_v_cruise(CS.vEgo, CS.buttonEvents, self.v_cruise_kph_last)
-          else:
+          # Correction of the last maximum speed that was lost on the screen. @AlexandreSato
+          if not self.CP.pcmCruise and CS.cruiseState.enabled:
             self.v_cruise_kph = initialize_v_cruise(CS.vEgo, CS.buttonEvents, self.v_cruise_kph_last)
 
     if not self.CP.pcmCruise:
