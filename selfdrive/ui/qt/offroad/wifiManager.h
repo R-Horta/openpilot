@@ -71,7 +71,7 @@ private:
   unsigned int raw_adapter_state;  // Connection status https://developer.gnome.org/NetworkManager/1.26/nm-dbus-types.html#NMDeviceState
   QString connecting_to_network;
   QString tethering_ssid;
-  const QString defaultTetheringPassword = "0123456789"; // pre select easiest password for hotspot " old value = "swagswagcomma"
+  const QString defaultTetheringPassword = "swagswagcomma";
 
   bool firstScan = true;
   QString getAdapter(const uint = NM_DEVICE_TYPE_WIFI);

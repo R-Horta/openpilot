@@ -42,7 +42,7 @@ def manager_init():
     ("CameraOffset", "0"),
     ("CarModel", "TOYOTA COROLLA TSS2 2019"), # option "SELECT YOUR CAR" appears selected
     ("Change5speed", "0"),
-    ("CompletedTrainingVersion", "1"), # old value = "0"
+    ("CompletedTrainingVersion", "0"),
     ("DevUI", "2"), # Shou debug UI Elements
     ("EnableMADS", "1"),
     ("DisableOnroadUploads", "0"),
@@ -63,7 +63,7 @@ def manager_init():
     ("ShowDebugUI", "1"),
     ("SpeedLimitControl", "1"),
     ("SpeedLimitPercOffset", "1"), # old value = "0"
-    ("TurnSpeedControl", "1"), # old value = "0"
+    ("TurnSpeedControl", "0"), # old value = "1"
     ("TurnVisionControl", "1"),
     ("ProcessNotRunningOff", "1"), # option "Bypass System Malfunction" appears selected.
     ("IsMetric", "1"), # option "Use Metric System" appears selected.
@@ -74,7 +74,7 @@ def manager_init():
     ("QuietDrive", "0"), # option "Quiet Drive 🤫" appears unselected.
     ("NoOffroadFix", "0"), # option "Fix openpilot No Offroad" appears unselected, because it doesn't worked in my the "Mr. One" - "Enforce openpilot to go offroad and turns off after shutting down the car. This feature fixes non-official devices running openpilot without comma power).
     ("DisableOnroadUploads", "0"), # option "Disable Onroad Uploads" apeears unselected. "Disable uploads completely when onroad. Necessary to avoid high data usage when connected to Wi-Fi hotspot. Turn on this feature if you are looking to utilize map-based features, such as Speed Limit Control and Map Data Turn Control".
-    ("EnableDebugSnapshot", "0"), # option "Debug snapshot on screen center tap" apeears unselected.
+    ("EnableDebugSnapshot", "1"), # option "Debug snapshot on screen center tap" apeears unselected.
   ]
   if not PC:
     default_params.append(("LastUpdateTime", datetime.datetime.utcnow().isoformat().encode('utf8')))
