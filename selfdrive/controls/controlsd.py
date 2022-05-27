@@ -563,6 +563,10 @@ class Controls:
     else:
       self.saturated_count = 0
 
+    # Fix annoying chime when ACC is actived and LKAS not. AlexandreSato 
+    if not CS.lkasEnabled or CS.steeringPressed:
+      self.saturated_count = 0
+
     # Send a "steering required alert" if saturation count has reached the limit
     if (lac_log.saturated and not CS.steeringPressed) or \
        (self.saturated_count > STEER_ANGLE_SATURATION_TIMEOUT):
