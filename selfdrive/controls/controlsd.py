@@ -563,10 +563,6 @@ class Controls:
     else:
       self.saturated_count = 0
 
-    # Fix annoying chime when ACC is actived and LKAS not. AlexandreSato 
-    if not CS.lkasEnabled or CS.steeringPressed:
-      self.saturated_count = 0
-
     # Send a "steering required alert" if saturation count has reached the limit
     if (lac_log.saturated and not CS.steeringPressed) or \
        (self.saturated_count > STEER_ANGLE_SATURATION_TIMEOUT):
@@ -576,8 +572,10 @@ class Controls:
         # TODO use desired vs actual curvature
         left_deviation = actuators.steer > 0 and lat_plan.dPathPoints[0] < -0.20
         right_deviation = actuators.steer < 0 and lat_plan.dPathPoints[0] > 0.20
-
-        if (left_deviation or right_deviation) and CS.lkasEnabled:
+        
+        # Fix annoying chime when ACC is actived and LKAS not. - AlexandreSato
+        # if left_deviation or right_deviation:
+        if (left_deviation or right_deviation) and CS.lkasEnabled: 
           self.events.add(EventName.steerSaturated)
 
     # Ensure no NaNs/Infs
