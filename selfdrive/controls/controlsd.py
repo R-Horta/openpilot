@@ -577,7 +577,7 @@ class Controls:
         left_deviation = actuators.steer > 0 and lat_plan.dPathPoints[0] < -0.20
         right_deviation = actuators.steer < 0 and lat_plan.dPathPoints[0] > 0.20
 
-        if left_deviation or right_deviation:
+        if (left_deviation or right_deviation) and CS.lkasEnabled:
           self.events.add(EventName.steerSaturated)
 
     # Ensure no NaNs/Infs
