@@ -11,7 +11,7 @@ from selfdrive.car.toyota.values import CAR, STATIC_DSU_MSGS, NO_STOP_TIMER_CAR,
 from selfdrive.car.toyota.interface import CarInterface
 from opendbc.can.packer import CANPacker
 VisualAlert = car.CarControl.HUDControl.VisualAlert
-
+CREEP_SPEED = 2.3
 
 class CarController():
   def __init__(self, dbc_name, CP, VM):
