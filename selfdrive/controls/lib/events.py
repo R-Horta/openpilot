@@ -346,7 +346,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, AlertCallbackType]]] = {
   EventName.stockAeb: {
     ET.PERMANENT: Alert(
       "FREIE!",
-      "Stock AEB: Risk of Collision",
+      "Original AEB: Risco de Colisão",
       AlertStatus.critical, AlertSize.full,
       Priority.HIGHEST, VisualAlert.fcw, AudibleAlert.none, 2.),
     ET.NO_ENTRY: NoEntryAlert("Stock AEB: Risk of Collision"),
@@ -355,7 +355,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, AlertCallbackType]]] = {
   EventName.fcw: {
     ET.PERMANENT: Alert(
       "FREIE!",
-      "Perigo de Colisão",
+      "Risco de Colisão",
       AlertStatus.critical, AlertSize.full,
       Priority.HIGHEST, VisualAlert.fcw, AudibleAlert.warningSoft, 2.),
   },
@@ -409,8 +409,8 @@ EVENTS: Dict[int, Dict[str, Union[Alert, AlertCallbackType]]] = {
 
   EventName.promptDriverDistracted: {
     ET.WARNING: Alert(
-      "Presta Atenção",
-      "Motorista Distraído",
+      "Preste Atenção",
+      "Motorista distraído",
       AlertStatus.userPrompt, AlertSize.mid,
       Priority.MID, VisualAlert.steerRequired, AudibleAlert.promptDistracted, .1),
   },
@@ -425,7 +425,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, AlertCallbackType]]] = {
 
   EventName.preDriverUnresponsive: {
     ET.WARNING: Alert(
-      "Toque o Volante: Face não detectada",
+      "Toque o volante: Rosto não detectado",
       "",
       AlertStatus.normal, AlertSize.small,
       Priority.LOW, VisualAlert.steerRequired, AudibleAlert.none, .1, alert_rate=0.75),
@@ -449,7 +449,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, AlertCallbackType]]] = {
 
   EventName.preKeepHandsOnWheel: {
     ET.WARNING: Alert(
-      "No hands on steering wheel detected",
+      "Nenhuma mão no volante detectada",
       "",
       AlertStatus.userPrompt, AlertSize.small,
       Priority.MID, VisualAlert.steerRequired, AudibleAlert.none, .1, alert_rate=0.75),
@@ -457,8 +457,8 @@ EVENTS: Dict[int, Dict[str, Union[Alert, AlertCallbackType]]] = {
 
   EventName.promptKeepHandsOnWheel: {
     ET.WARNING: Alert(
-      "HANDS OFF STEERING WHEEL",
-      "Place hands on steering wheel",
+      "MÃOS FORA DO VOLANTE",
+      "Coloque as mãos no volante",
       AlertStatus.critical, AlertSize.mid,
       Priority.MID, VisualAlert.steerRequired, AudibleAlert.promptDistracted, .1),
   },
@@ -489,7 +489,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, AlertCallbackType]]] = {
 
   EventName.preLaneChangeLeft: {
     ET.WARNING: Alert(
-      "Direção a Direita para Mudança de Faixa Segura",
+      "Direção à Esquerda para Mudança Segura de Faixa",
       "",
       AlertStatus.normal, AlertSize.small,
       Priority.LOW, VisualAlert.none, AudibleAlert.none, .1, alert_rate=0.75),
@@ -497,7 +497,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, AlertCallbackType]]] = {
 
   EventName.preLaneChangeRight: {
     ET.WARNING: Alert(
-      "Direção a Esquerda para Mudança de Faixa Segura",
+      "Direção à Direita para Mudança segura de faixa",
       "",
       AlertStatus.normal, AlertSize.small,
       Priority.LOW, VisualAlert.none, AudibleAlert.none, .1, alert_rate=0.75),
@@ -505,7 +505,7 @@ EVENTS: Dict[int, Dict[str, Union[Alert, AlertCallbackType]]] = {
 
   EventName.laneChangeBlocked: {
     ET.WARNING: Alert(
-      "Car Detected in Blindspot",
+      "Carro detectado no ponto cego",
       "",
       AlertStatus.userPrompt, AlertSize.small,
       Priority.LOW, VisualAlert.none, AudibleAlert.prompt, .1),
@@ -529,8 +529,8 @@ EVENTS: Dict[int, Dict[str, Union[Alert, AlertCallbackType]]] = {
 
   EventName.manualLongitudinalRequired: {
     ET.WARNING: Alert(
-      "CRUSEIRO ADAPTATIVO DESLIGADO",
-      "Acelerador/Freio Manual Necessários",
+      "Cruzeiro Adaptativo DESLIGADO",
+      "Acelerador e freios manuais necessários",
       AlertStatus.normal, AlertSize.mid,
       Priority.LOW, VisualAlert.none, AudibleAlert.none, 2.),
   },
@@ -739,11 +739,11 @@ EVENTS: Dict[int, Dict[str, Union[Alert, AlertCallbackType]]] = {
     ET.SOFT_DISABLE: soft_disable_alert("ESP Off"),
     ET.NO_ENTRY: NoEntryAlert("ESP Off"),
   },
-
-  EventName.lowBattery: {
-    ET.SOFT_DISABLE: soft_disable_alert("Low Battery"),
-    ET.NO_ENTRY: NoEntryAlert("Low Battery"),
-  },
+  #  keep the OP running even with the Corolla's ridiculous 45ah battery
+  #EventName.lowBattery: {
+  #  ET.SOFT_DISABLE: soft_disable_alert("Low Battery"),
+  #  ET.NO_ENTRY: NoEntryAlert("Low Battery"),
+  #},
 
   # Different openpilot services communicate between each other at a certain
   # interval. If communication does not follow the regular schedule this alert
@@ -869,8 +869,8 @@ EVENTS: Dict[int, Dict[str, Union[Alert, AlertCallbackType]]] = {
       "",
       AlertStatus.normal, AlertSize.full,
       Priority.LOWEST, VisualAlert.none, AudibleAlert.none, .2, creation_delay=0.5),
-    ET.USER_DISABLE: ImmediateDisableAlert("Reverse Gear"),
-    ET.NO_ENTRY: NoEntryAlert("Reverse Gear"),
+    ET.USER_DISABLE: ImmediateDisableAlert("Marcha Ré"),
+    ET.NO_ENTRY: NoEntryAlert("Marcha Ré"),
   },
 
   # On cars that use stock ACC the car can decide to cancel ACC for various reasons.
@@ -918,15 +918,15 @@ EVENTS: Dict[int, Dict[str, Union[Alert, AlertCallbackType]]] = {
   EventName.speedTooHigh: {
     ET.WARNING: Alert(
       "Velocidade Muito Alta",
-      "Model uncertain at this speed",
+      "Modelo incerto nesta velocidade",
       AlertStatus.userPrompt, AlertSize.mid,
       Priority.HIGH, VisualAlert.steerRequired, AudibleAlert.promptRepeat, 4.),
     ET.NO_ENTRY: NoEntryAlert("Reduza para acionar"),
   },
 
   EventName.lowSpeedLockout: {
-    ET.PERMANENT: NormalPermanentAlert("Cruise Fault: Restart the car to engage"),
-    ET.NO_ENTRY: NoEntryAlert("Cruise Fault: Restart the Car"),
+    ET.PERMANENT: NormalPermanentAlert("Falha de Cruzeiro: Reinicie o carro para acionar"),
+    ET.NO_ENTRY: NoEntryAlert("Falha de Cruzeiro: Reinicie o carro"),
   },
 
 }

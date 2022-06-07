@@ -96,9 +96,9 @@ class CarState(CarStateBase):
       cp.vl["WHEEL_SPEEDS"]["WHEEL_SPEED_RR"],
     )
     ret.vEgoRaw = mean([ret.wheelSpeeds.fl, ret.wheelSpeeds.fr, ret.wheelSpeeds.rl, ret.wheelSpeeds.rr])
-    ret.vEgo, ret.aEgo = self.update_speed_kf(ret.vEgoRaw)
+    ret.vEgo, ret.aEgo = self.update_speed_kf(ret.vEgoRaw) 
 
-    self.belowLaneChangeSpeed = ret.vEgo < (30 * CV.MPH_TO_MS)
+    self.belowLaneChangeSpeed = ret.vEgo < (20 * CV.MPH_TO_MS) # Enable Lane Change above 32 km/h instead of 48 km/h - old value = 30
 
     ret.standstill = ret.vEgoRaw < 0.001
     ret.standStill = self.CP.standStill
@@ -205,7 +205,7 @@ class CarState(CarStateBase):
       ret.cruiseState.speed = cp.vl["DSU_CRUISE"]["SET_SPEED"] * CV.KPH_TO_MS
     else:
       ret.cruiseState.available = cp.vl["PCM_CRUISE_2"]["MAIN_ON"] != 0
-      ret.cruiseState.speed = cp.vl["PCM_CRUISE_2"]["SET_SPEED"] * self.CP.wheelSpeedFactor * CV.KPH_TO_MS
+      ret.cruiseState.speed = cp.vl["PCM_CRUISE_2"]["SET_SPEED"] * CV.KPH_TO_MS * self.CP.wheelSpeedFactor # Make OpenPilot's speed match the dashboard's speedometer. - old value = without self.CP.wheelSpeedFactor
 
     if self.CP.carFingerprint in TSS2_CAR:
       self.acc_type = 1 if Params().get_bool('StopAndGoHack') else cp_cam.vl["ACC_CONTROL"]["ACC_TYPE"]

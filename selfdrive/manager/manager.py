@@ -36,39 +36,46 @@ def manager_init():
   params.clear_all(ParamKeyType.CLEAR_ON_MANAGER_START)
 
   default_params = [
-    ("ACCMADSCombo", "1"),
-    ("AutoLaneChangeTimer", "0"),
-    ("BrightnessControl", "0"),
+    ("ACCMADSCombo", "0"),
+    ("AutoLaneChangeTimer", "1"), # old value = "0"
+    ("BrightnessControl", "0"), # old value = "100"
     ("CameraOffset", "0"),
-    ("CarModel", ""),
-    ("Change5speed", "1"),
-    ("CompletedTrainingVersion", training_version),
-    ("DevUI", "2"),
+    ("CarModel", "TOYOTA COROLLA TSS2 2019"), # option "SELECT YOUR CAR" appears selected
+    ("Change5speed", "0"),
+    ("CompletedTrainingVersion", "0"),
+    ("DevUI", "2"), # Shou debug UI Elements
     ("EnableMADS", "1"),
     ("DisableOnroadUploads", "0"),
-    ("DynamicLaneProfile", "2"),
-    ("EndToEndToggle", "1"),
+    ("DynamicLaneProfile", "2"), # old value = "3"
+    ("EndToEndToggle", "1"), # Disable use of lanelines (Alpha)
     ("GapAdjustCruise", "0"),
-    ("GapAdjustCruiseTr", "3"),
-    ("GithubUsername", "AlexandreSato"),
-    ("GpxDeleteAfterUpload", "1"),
-    ("GpxDeleteIfUploaded", "1"),
-    ("HasAcceptedTerms", terms_version),
+    ("GapAdjustCruiseTr", "3"), # old value = "1"
+    ("GpxDeleteAfterUpload", "0"), # old value = "1" - keep gps tracks even after upload
+    ("GpxDeleteIfUploaded", "0"), # old value = "1" - keep gps tracks even after upload
+    ("HasAcceptedTerms", "0"), # old value = "1"
     ("HandsOnWheelMonitoring", "0"),
-    ("IsMetric", "1"),
-    ("MaxTimeOffroad", "12"),
+    ("MaxTimeOffroad", "12"), # old value = "30"
     ("NoOffroadFix", "0"),
-    ("OnroadScreenOff", "0"),
-    ("OnroadScreenOffBrightness", "50"),
+    ("OnroadScreenOff", "-1"), # old value = "-2"
+    ("OnroadScreenOffBrightness", "70"),
     ("OpenpilotEnabledToggle", "1"),
     ("PrebuiltOn", "0"),
     ("ShowDebugUI", "1"),
     ("SpeedLimitControl", "1"),
-    ("SpeedLimitPercOffset", "1"),
-    ("StopAndGoHack", "1"),
-    ("TurnSpeedControl", "1"),
+    ("SpeedLimitPercOffset", "1"), # old value = "0"
+    ("TurnSpeedControl", "1"), # old value = "0"
     ("TurnVisionControl", "1"),
-    ("UploadRaw", "1"),
+    ("ProcessNotRunningOff", "1"), # option "Bypass System Malfunction" appears selected.
+    ("IsMetric", "1"), # option "Use Metric System" appears selected.
+    ("CommunityFeaturesToggle", "1"), # option "Enable Community Features" appears selected.
+    ("IsLdwEnabled", "1"), # option "Enable Lane Departure Warnings" appears selected. "Receive alerts to steer back into the lane when your vehicle drifts over a detected lane line without a turn signal activated while driving over 31mph (50kph)."
+    ("IsRHD", "0"), # option "IsRHD" appears unselected.
+    ("RecordFront", "0"), # option "RecordFront" appears unselected.
+    ("QuietDrive", "0"), # option "Quiet Drive 🤫" appears unselected.
+    ("NoOffroadFix", "0"), # option "Fix openpilot No Offroad" appears unselected, because it doesn't worked in my the "Mr. One" - "Enforce openpilot to go offroad and turns off after shutting down the car. This feature fixes non-official devices running openpilot without comma power).
+    ("DisableOnroadUploads", "0"), # option "Disable Onroad Uploads" apeears unselected. "Disable uploads completely when onroad. Necessary to avoid high data usage when connected to Wi-Fi hotspot. Turn on this feature if you are looking to utilize map-based features, such as Speed Limit Control and Map Data Turn Control".
+    ("EnableDebugSnapshot", "1"), # option "Debug snapshot on screen center tap" apeears unselected.
+     ("StopAndGoHack", "1"), # option for Hack SnG by AlexandreSato
   ]
   if not PC:
     default_params.append(("LastUpdateTime", datetime.datetime.utcnow().isoformat().encode('utf8')))

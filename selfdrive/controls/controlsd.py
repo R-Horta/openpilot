@@ -441,6 +441,7 @@ class Controls:
       else:
         # ENABLED
         if self.state == State.enabled:
+          # Correction of the last maximum speed that was lost on the screen. @AlexandreSato
           if not self.CP.pcmCruise and CS.cruiseState.enabled and (not self.cruiseState_enabled_last):
             self.v_cruise_kph = initialize_v_cruise(CS.vEgo, CS.buttonEvents, self.v_cruise_kph_last)
           if self.events.any(ET.SOFT_DISABLE):
@@ -479,6 +480,7 @@ class Controls:
           else:
             self.state = State.enabled
           self.current_alert_types.append(ET.ENABLE)
+          # Correction of the last maximum speed that was lost on the screen. @AlexandreSato
           if not self.CP.pcmCruise and CS.cruiseState.enabled:
             self.v_cruise_kph = initialize_v_cruise(CS.vEgo, CS.buttonEvents, self.v_cruise_kph_last)
 
@@ -567,8 +569,10 @@ class Controls:
         # TODO use desired vs actual curvature
         left_deviation = actuators.steer > 0 and lat_plan.dPathPoints[0] < -0.20
         right_deviation = actuators.steer < 0 and lat_plan.dPathPoints[0] > 0.20
-
-        if (left_deviation or right_deviation) and CS.lkasEnabled:
+        
+        # Fix annoying chime when ACC is actived and LKAS not. - AlexandreSato
+        # if left_deviation or right_deviation:
+        if (left_deviation or right_deviation) and CS.lkasEnabled: 
           self.events.add(EventName.steerSaturated)
 
     # Ensure no NaNs/Infs

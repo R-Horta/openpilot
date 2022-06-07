@@ -7,9 +7,9 @@ from selfdrive.modeld.constants import T_IDXS
 
 # WARNING: this value was determined based on the model's training distribution,
 #          model predictions above this speed can be unpredictable
-V_CRUISE_MAX = 145  # kph
+V_CRUISE_MAX = 155  # kph
 V_CRUISE_MIN = 8  # kph
-V_CRUISE_ENABLE_MIN = 40  # kph
+V_CRUISE_ENABLE_MIN = 30  # kph - old value = 40
 
 LAT_MPC_N = 16
 LON_MPC_N = 32
@@ -34,7 +34,7 @@ CRUISE_INTERVAL_SIGN = {
 LIMIT_ADAPT_ACC = -1.  # m/s^2 Ideal acceleration for the adapting (braking) phase when approaching speed limits.
 LIMIT_MIN_ACC = -1.5  # m/s^2 Maximum deceleration allowed for limit controllers to provide.
 LIMIT_MAX_ACC = 1.0   # m/s^2 Maximum acelration allowed for limit controllers to provide while active.
-LIMIT_MIN_SPEED = 8.33  # m/s, Minimum speed limit to provide as solution on limit controllers.
+LIMIT_MIN_SPEED = 4.17  # m/s, Minimum speed limit to provide as solution on limit controllers. - old value = 8.33
 LIMIT_SPEED_OFFSET_TH = -1.  # m/s Maximum offset between speed limit and current speed for adapting state.
 LIMIT_MAX_MAP_DATA_AGE = 10.  # s Maximum time to hold to map data, then consider it invalid inside limits controllers.
 
