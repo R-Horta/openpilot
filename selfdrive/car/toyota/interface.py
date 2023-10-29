@@ -166,7 +166,7 @@ class CarInterface(CarInterfaceBase):
       ret.steerRatio = 13.9
       tire_stiffness_factor = 0.444  # not optimized yet
       ret.mass = 3060. * CV.LB_TO_KG + STD_CARGO_KG
-      ret.wheelSpeedFactor = 1.09
+      ret.wheelSpeedFactor = 1.0
       set_lat_tune(ret.lateralTuning, LatTunes.INDI_COROLLAS_TSS2)
       ret.steerActuatorDelay = 0.2666 #Only For INDI
       #set_lat_tune(ret.lateralTuning, LatTunes.PID_D)
